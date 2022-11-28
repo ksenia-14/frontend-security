@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { useState } from "react";
 import style from './registrationForm.module.css';
@@ -64,9 +64,7 @@ const RegistrationForm = () => {
               id="login" name="login"
               value={login}
               onChange={(e) => onInputChange(e)} /><br />
-            {
-              loginError ? <span style={{ color: 'red', fontSize: '12px' }}>{loginError}</span> : ''
-            }
+            { loginError ? <span style={{ color: 'red', fontSize: '12px' }}>{loginError}</span> : '' }
           </div>
 
           <div className={style["input-div"]}>
@@ -76,9 +74,7 @@ const RegistrationForm = () => {
               id="password" name="password"
               value={password}
               onChange={(e) => onInputChange(e)} /><br />
-            {
-              passwordError ? <span style={{ color: 'red', fontSize: '12px' }}>{passwordError}</span> : ''
-            }
+            { passwordError ? <span style={{ color: 'red', fontSize: '12px' }}>{passwordError}</span> : '' }
           </div>
           <button className={style["btn-submit"]} type="submit">Зарегистрироваться</button>
         </form>
@@ -86,7 +82,7 @@ const RegistrationForm = () => {
 
       <div className={style["blue-div"]}>
         <div className={style["computer-man"]}>
-          <img src="/img/man.png" alt="man"></img>
+          <img src="./img/man.png" alt="man"></img>
           <div>
             <h2>Sign Up to name</h2>
             <p>Lorem Ipsum is simply </p>

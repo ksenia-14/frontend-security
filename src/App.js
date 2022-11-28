@@ -8,7 +8,7 @@ function App() {
   return (
     <Routes>
       <Route
-        path='/addUser'
+        path='/authorization'
         element={
           <AuthorizationForm />
         }
