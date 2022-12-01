@@ -7,6 +7,9 @@ import style from './authorizationForm.module.css';
 
 const AuthorizationForm = () => {
 
+  let urlAPI = "http://localhost:8081"
+  // let urlAPI = "https://api.render.com/deploy/srv-cdsd74o2i3mrfomtaif0?key=P9LBS1EtT5A"
+
   // использование навигации - переброс на другой url
   let navigate = useNavigate()
   // использование контекста
@@ -34,7 +37,7 @@ const AuthorizationForm = () => {
     e.preventDefault();
     setloginError('') // обнуление полей ошибок
     setPasswordError('')
-    await axios.post("http://localhost:8081/api/login", user) // отправка запроса
+    await axios.post(urlAPI + "/api/login", user) // отправка запроса
       .then((response) => response.data)
       .then((data) => {
         if (data.fieldErrors) { // если есть ошибки
