@@ -1,12 +1,16 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { useState } from "react";
+import { AppContext } from '../../App';
 import style from './authorizationForm.module.css';
 
 const AuthorizationForm = () => {
 
   // использование навигации - переброс на другой url
   let navigate = useNavigate()
+  // использование контекста
+  const context = React.useContext(AppContext)
 
   const [loginError, setloginError] = useState('');  // ошибка в логине
   const [passwordError, setPasswordError] = useState('');  // ошибка в пароле
@@ -35,15 +39,24 @@ const AuthorizationForm = () => {
       .then((data) => {
         if (data.fieldErrors) { // если есть ошибки
           data.fieldErrors.forEach(fieldError => {
-            if (fieldError.field === 'login') {
+            if (fieldError.field === 'loginError') {
               setloginError(fieldError.message);
             }
-            if (fieldError.field === 'password') {
+            if (fieldError.field === 'passwordError') {
               setPasswordError(fieldError.message);
             }
           });
         } else { // если нет ошибок
-          navigate('/');
+          localStorage.clear();
+          let token = data.token
+          localStorage.setItem('JSESSIONID', token); // записываем токен в браузер
+          localStorage.setItem('USERNAME', password);
+          localStorage.setItem('PASSWORD', login);
+          // console.log("user.login: " + user.login)
+          // context.setPasswordUser(user.password)
+          // context.setLoginUser(user.login)
+          // console.log("context.loginUser: " + context.loginUser)
+          navigate('/personal');
         }
       })
       .catch((err) => err);

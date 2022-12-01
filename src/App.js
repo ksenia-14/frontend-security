@@ -3,29 +3,49 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css';
 import RegistrationForm from './components/registrationForm/RegistrationForm';
 import AuthorizationForm from './components/authorizationForm/AuthorizationForm';
+import PersonalArea from './components/personalArea/PersonalArea';
+
+// контекст
+export const AppContext = React.createContext({})
 
 function App() {
+  // state для хранения пароля
+  const [passwordUser, setPasswordUser] = React.useState('')
+  // state для хранения логина
+  const [loginUser, setLoginUser] = React.useState('')
+
   return (
-    <Routes>
-      <Route
-        path='/authorization'
-        element={
-          <AuthorizationForm />
-        }
-      />
-      <Route
-        path='/registration'
-        element={
-          <RegistrationForm />
-        }
-      />
+    <AppContext.Provider value={{
+      passwordUser, setPasswordUser,
+      loginUser, setLoginUser
+    }}>
+      <Routes>
         <Route
-        path='/'
-        element={
-          <div>Main page</div>
-        }
-      />
-    </Routes>
+          path='/authorization'
+          element={
+            <AuthorizationForm />
+          }
+        />
+        <Route
+          path='/registration'
+          element={
+            <RegistrationForm />
+          }
+        />
+        <Route
+          path='/'
+          element={
+            <div>Main page</div>
+          }
+        />
+        <Route
+          path='/personal'
+          element={
+            <PersonalArea />
+          }
+        />
+      </Routes>
+    </AppContext.Provider>
   );
 }
 
