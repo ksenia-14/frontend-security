@@ -4,11 +4,9 @@ import axios from "axios";
 import { useState } from "react";
 import { AppContext } from '../../App';
 import style from './authorizationForm.module.css';
+import { urlAPI } from '../../global';
 
 const AuthorizationForm = () => {
-
-  let urlAPI = "http://localhost:8081"
-  // let urlAPI = "https://api.render.com/deploy/srv-cdsd74o2i3mrfomtaif0?key=P9LBS1EtT5A"
 
   // использование навигации - переброс на другой url
   let navigate = useNavigate()
@@ -65,6 +63,10 @@ const AuthorizationForm = () => {
       .catch((err) => err);
   }
 
+  const onClickSignIn = () => {
+    navigate('/registration');
+  }
+
   return (
     <div className={style["main-div"]}>
 
@@ -80,7 +82,7 @@ const AuthorizationForm = () => {
               id="login" name="login"
               value={login}
               onChange={(e) => onInputChange(e)} /><br />
-            { loginError ? <span style={{ color: 'red', fontSize: '12px' }}>{loginError}</span> : '' }
+            {loginError ? <span style={{ color: 'red', fontSize: '12px' }}>{loginError}</span> : ''}
           </div>
 
           <div className={style["input-div"]}>
@@ -90,9 +92,14 @@ const AuthorizationForm = () => {
               id="password" name="password"
               value={password}
               onChange={(e) => onInputChange(e)} /><br />
-            { passwordError ? <span style={{ color: 'red', fontSize: '12px' }}>{passwordError}</span> : '' }
+            {passwordError ? <span style={{ color: 'red', fontSize: '12px' }}>{passwordError}</span> : ''}
           </div>
           <button className={style["btn-submit"]} type="submit">Войти</button>
+          <div className={style["ordinal-text"]}>
+            <font>
+              или <font className={style["redirect-text"]} onClick={onClickSignIn}>Зарегистрироваться</font>
+            </font>
+          </div>
         </form>
       </div>
 

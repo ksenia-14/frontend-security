@@ -4,6 +4,7 @@ import './App.css';
 import RegistrationForm from './components/registrationForm/RegistrationForm';
 import AuthorizationForm from './components/authorizationForm/AuthorizationForm';
 import PersonalArea from './components/personalArea/PersonalArea';
+import TempMain from './components/tempMain/TempMain';
 
 // контекст
 export const AppContext = React.createContext({})
@@ -35,7 +36,7 @@ function App() {
         <Route
           path='/'
           element={
-            <div>Main page</div>
+            <TempMain />
           }
         />
         <Route

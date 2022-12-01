@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { useState } from "react";
 import style from './registrationForm.module.css';
+import { urlAPI } from '../../global';
 
 const RegistrationForm = () => {
 
@@ -30,7 +31,7 @@ const RegistrationForm = () => {
     e.preventDefault();
     setloginError('') // обнуление полей ошибок
     setPasswordError('')
-    await axios.post("http://localhost:8081/api/registration", user) // отправка запроса
+    await axios.post(urlAPI + "/api/registration", user) // отправка запроса
       .then((response) => response.data)
       .then((data) => {
         if (data.fieldErrors) { // если есть ошибки
@@ -47,6 +48,10 @@ const RegistrationForm = () => {
         }
       })
       .catch((err) => err);
+  }
+
+  const onClickLogIn = () => {
+    navigate('/authorization');
   }
 
   return (
@@ -77,6 +82,11 @@ const RegistrationForm = () => {
             { passwordError ? <span style={{ color: 'red', fontSize: '12px' }}>{passwordError}</span> : '' }
           </div>
           <button className={style["btn-submit"]} type="submit">Зарегистрироваться</button>
+          <div className={style["ordinal-text"]}>
+            <font>
+              или <font className={style["redirect-text"]} onClick={onClickLogIn}>Войти</font>
+            </font>
+          </div>
         </form>
       </div>
 

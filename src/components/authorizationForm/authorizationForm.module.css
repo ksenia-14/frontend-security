@@ -66,7 +66,7 @@ body {
 
 form {
   display: grid;
-  grid-template-rows: min-content repeat(7, min-content);
+  grid-template-rows: min-content repeat(8, min-content);
   width: 100%;
   height: auto;
   align-content: center;
@@ -137,3 +137,17 @@ form {
   color: #000842;
   border: 2px solid #000842;
 }
+
+.ordinal-text {
+  text-align: center;
+  margin: 10px;
+}
+
+.redirect-text {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0C21C1;
+}
+
+
+

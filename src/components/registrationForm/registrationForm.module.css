@@ -137,3 +137,14 @@ form {
   color: #000842;
   border: 2px solid #000842;
 }
+
+.ordinal-text {
+  text-align: center;
+  margin: 10px;
+}
+
+.redirect-text {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0C21C1;
+}
