@@ -11,7 +11,7 @@ const AuthorizationForm = () => {
   // использование навигации - переброс на другой url
   let navigate = useNavigate()
   // использование контекста
-  const context = React.useContext(AppContext)
+  // const context = React.useContext(AppContext)
 
   const [loginError, setloginError] = useState('');  // ошибка в логине
   const [passwordError, setPasswordError] = useState('');  // ошибка в пароле
@@ -35,7 +35,7 @@ const AuthorizationForm = () => {
     e.preventDefault();
     setloginError('') // обнуление полей ошибок
     setPasswordError('')
-    await axios.post(urlAPI + "/api/login", user) // отправка запроса
+    await axios.post(urlAPI + "/api/authentication/login", user) // отправка запроса
       .then((response) => response.data)
       .then((data) => {
         if (data.fieldErrors) { // если есть ошибки
@@ -51,12 +51,6 @@ const AuthorizationForm = () => {
           localStorage.clear();
           let token = data.token
           localStorage.setItem('JSESSIONID', token); // записываем токен в браузер
-          localStorage.setItem('USERNAME', password);
-          localStorage.setItem('PASSWORD', login);
-          // console.log("user.login: " + user.login)
-          // context.setPasswordUser(user.password)
-          // context.setLoginUser(user.login)
-          // console.log("context.loginUser: " + context.loginUser)
           navigate('/personal');
         }
       })

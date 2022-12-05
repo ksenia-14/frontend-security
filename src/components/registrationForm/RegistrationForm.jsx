@@ -31,7 +31,7 @@ const RegistrationForm = () => {
     e.preventDefault();
     setloginError('') // обнуление полей ошибок
     setPasswordError('')
-    await axios.post(urlAPI + "/api/registration", user) // отправка запроса
+    await axios.post(urlAPI + "/api/authentication/registration", user) // отправка запроса
       .then((response) => response.data)
       .then((data) => {
         if (data.fieldErrors) { // если есть ошибки
