@@ -28,11 +28,11 @@ const PersonalAdmin = () => {
   return (
     <div>
       Вы вошли в личный кабинет администратора<br /><br />
-      <Orders/>
-      <br /><br />
       <Users />
       <br /><br />
       <Products />
+      <br /><br />
+      <Orders/>
       <br /><br />
       <button onClick={btnLogout}>Выйти</button><br /><br />
     </div>

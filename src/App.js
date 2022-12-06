@@ -8,6 +8,7 @@ import AuthorizationPage from './pages/AuthorizationPage';
 import RegistrationPage from './pages/RegistrationPage';
 import PersonalPage from './pages/PersonalPage';
 import MainPage from './pages/MainPage';
+import ProductInfo from './components/productInfo/ProductInfo';
 
 // контекст
 export const AppContext = React.createContext({})
@@ -16,6 +17,7 @@ function App() {
   const [passwordUser, setPasswordUser] = React.useState('')  // state для хранения пароля
   const [loginUser, setLoginUser] = React.useState('')  // state для хранения логина
   const [render, setRender] = React.useState(0);  // state для обновления рендера
+  const [infoId, setInfoId] = React.useState('')
 
   let navigate = useNavigate()  // использование навигации - переброс на другой url
 
@@ -61,15 +63,16 @@ function App() {
   }
 
   const updateRender = () => {
-    setRender(render+1)
+    setRender(render + 1)
   }
 
-  React.useEffect(() => {},[render])
+  React.useEffect(() => { }, [render])
 
   return (
     <AppContext.Provider value={{
       passwordUser, setPasswordUser,
       loginUser, setLoginUser,
+      infoId, setInfoId,
       isAuthorization,
       getRole,
       render, setRender, updateRender
@@ -97,6 +100,12 @@ function App() {
           path='/personal'
           element={
             <PersonalPage />
+          }
+        />
+        <Route
+          path='/product/info'
+          element={
+            <ProductInfo />
           }
         />
       </Routes>
