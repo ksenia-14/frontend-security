@@ -5,6 +5,8 @@ import { useState } from "react";
 import { urlAPI } from '../../../../global';
 import { AppContext } from '../../../../App';
 import UserEditItem from './userEditItem/UserEditItem';
+import style from './users.module.css';
+import UserAddItem from './userAddItem/UserAddItem';
 
 const Users = () => {
   // использование контекста
@@ -16,20 +18,6 @@ const Users = () => {
   const [loginError, setloginError] = useState('');  // ошибка в логине
   const [passwordError, setPasswordError] = useState('');  // ошибка в пароле
   const [idError, setIdError] = useState('');  // ошибка в id
-
-  // state для пользователя
-  const [user, setUser] = useState({
-    login: "",
-    password: ""
-  })
-
-  // объект пользователя с логином и паролем
-  const { login, password } = user
-
-  // при изменении в полях логина и пароля изменяются поля в объекте
-  const onInputChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value })
-  }
 
   React.useEffect(() => {
     axiosData()
@@ -45,36 +33,10 @@ const Users = () => {
     try {
       const usersData = await instance.get(urlAPI + "/api/admin/user/all")
       setUsers(usersData.data)
+      setUsers((prev) => prev.sort((a, b) => a.id > b.id ? 1 : -1))
     } catch (error) {
       console.log("Ошибка получения всех пользователей")
     }
-
-  }
-
-  /** Добавление пользователя */
-  const addUser = async (e) => {
-    e.preventDefault();
-    setloginError('') // обнуление полей ошибок
-    setPasswordError('')
-    await axios.post(urlAPI + "/api/authentication/registration", user) // отправка запроса
-      .then((response) => response.data)
-      .then((data) => {
-        if (data.fieldErrors) { // если есть ошибки
-          data.fieldErrors.forEach(fieldError => {
-            if (fieldError.field === 'login') {
-              setloginError(fieldError.message);
-            }
-            if (fieldError.field === 'password') {
-              setPasswordError(fieldError.message);
-            }
-          });
-        } else { // если нет ошибок
-          user.login = ""
-          user.password = ""
-          context.setRender(context.render + 1)
-        }
-      })
-      .catch((err) => err);
   }
 
   const clickChangeUser = (id) => {
@@ -120,7 +82,7 @@ const Users = () => {
             <th>Роль</th>
             <th name="btnChange"></th>
             <th name="btnDelete"></th>
-            <th name="divInputNew"></th>
+            <th name="divInputNew" className={style["hide-column"]}></th>
           </tr>
           {users.map(el => {
             return (
@@ -130,7 +92,7 @@ const Users = () => {
                 <td>{el.role}</td>
                 <td><button onClick={() => clickChangeUser(el.id)}>Изменить</button></td>
                 <td><button onClick={() => btnDelete(el.id)}>Удалить</button></td>
-                <td>
+                <td className={style["hide-column"]}>
                   <UserEditItem
                     id={el.id}
                     login={el.login}
@@ -146,24 +108,8 @@ const Users = () => {
         </tbody>
       </table>
       <br /><br />
-      <>
-        <h3>Добавить пользователя</h3><br />
-        <font>Login: </font>
-        <input
-          placeholder="Логин"
-          id="login" name="login"
-          value={login}
-          onChange={(e) => onInputChange(e)}></input><br />
-        {loginError ? <span style={{ color: 'red', fontSize: '12px' }}>{loginError}</span> : ''}<br />
-        <font>Password: </font>
-        <input type="password"
-          placeholder="Пароль"
-          id="password" name="password"
-          value={password}
-          onChange={(e) => onInputChange(e)}></input><br />
-        {passwordError ? <span style={{ color: 'red', fontSize: '12px' }}>{passwordError}</span> : ''}<br />
-        <button onClick={addUser}>Добавить</button>
-      </></>
+      <UserAddItem/>
+    </>
   )
 }
 export default Users

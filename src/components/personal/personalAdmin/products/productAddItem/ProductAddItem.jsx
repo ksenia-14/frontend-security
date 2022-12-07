@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { urlAPI } from '../../../../../global';
 import { AppContext } from '../../../../../App';
+import style from './productAddItem.module.css';
 
 const ProductAddItem = (props) => {
   const context = React.useContext(AppContext)
@@ -12,12 +13,13 @@ const ProductAddItem = (props) => {
   const [sellerError, setSellerError] = useState('')
   const [priceError, setPriceError] = useState('')
   const [categoryError, setCategoryError] = useState('')
+  const [selectedFile, setSelectedFile] = React.useState(null);
 
   // state для продукта
   const [product, setProduct] = useState({
     title: "",
     seller: "",
-    price: 0,
+    price: "",
     category: "Одежда",
     description: ""
   })
@@ -30,8 +32,13 @@ const ProductAddItem = (props) => {
     setProduct({ ...product, [e.target.name]: e.target.value })
   }
 
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0])
+  }
+
   /** Добавить товар */
-  const btnAdd = async () => {
+  const btnAdd = async (event) => {
+    event.preventDefault()
     setTitleError('') // обнуление полей ошибок
     setSellerError('')
     setPriceError('')
@@ -40,7 +47,16 @@ const ProductAddItem = (props) => {
     let instance = axios.create();
     instance.defaults.headers.common['Authorization'] = "Bearer " + tokenBrowser;
 
-    await instance.post(urlAPI + "/api/admin/product/add", product) // отправка запроса
+    const formData = new FormData();
+    formData.append("selectedFile", selectedFile);
+    formData.append("product", JSON.stringify(product));
+
+    await instance({
+      method: "post",
+      url: urlAPI + "/api/admin/product/add",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    }) // отправка запроса
       .then((response) => response.data)
       .then((data) => {
         if (data.fieldErrors) { // если есть ошибки
@@ -65,7 +81,8 @@ const ProductAddItem = (props) => {
   }
 
   return (
-    <div>
+    <div className={style["main-container-add"]}>
+      <h3>Добавить товар</h3>
       <input
         name="title"
         placeholder='Название'
@@ -102,6 +119,10 @@ const ProductAddItem = (props) => {
         onChange={(e) => onInputChange(e)}
       >
       </input>
+      <div>
+        <span>Загрузить картинку </span>
+        <input type="file" name="file" onChange={handleFileSelect} />
+      </div>
       <button onClick={btnAdd}>Добавить</button><br />
     </div>
   )

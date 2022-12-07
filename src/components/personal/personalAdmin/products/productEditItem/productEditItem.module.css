@@ -3,5 +3,32 @@
 }
 
 .change-product-on {
-  /* display: ; */
+
+}
+
+.change-product-on input{
+  border: 1px solid #172270;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 2px;
+  width: 150px;
+}
+
+.change-product-on select{
+  border: 1px solid #172270;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 2px;
+  width: 162px;
+}
+
+.change-product-on button{
+  border: 1px solid #172270;
+  border-radius: 5px;
+  color: white;
+  background-color: rgba(96, 96, 237, 0.692);
+  padding: 10px;
+  margin: 5px;
+  margin-top: 10px;
+  width: 150px;
 }

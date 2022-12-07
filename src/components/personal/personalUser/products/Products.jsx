@@ -4,6 +4,8 @@ import axios from "axios";
 import { useState } from "react";
 import { urlAPI } from '../../../../global';
 import { AppContext } from '../../../../App';
+import style from './products.module.css';
+import ProductItem from '../../../productItem/ProductItem';
 
 const Products = () => {
   // использование контекста
@@ -42,6 +44,7 @@ const Products = () => {
       try {
         const productsData = await instance.get(urlAPI + "/api/product/all_products")
         setProducts(productsData.data)
+        setProducts((prev) => prev.sort((a, b) => a.id > b.id ? 1 : -1))
         setFilterItems(productsData.data)
       } catch (error) {
         console.log("Ошибка получения всех продуктов")
@@ -146,105 +149,38 @@ const Products = () => {
 
   return (
     <>
-      <input onChange={onSearchInput} placeholder="Поиск по товарам" /><br />
-      <button onClick={debug}>debug</button>
-      <button onClick={sortDescendingPrice}>Сначала дешевле</button>
-      <button onClick={sortAscendingPrice}>Сначала дороже</button>
-      <select value={categorySort} onChange={(event) => sortCategoryChange(event)}>
-        <option value="Все категории">Все категории</option>
-        <option value="Одежда">Одежда</option>
-        <option value="Обувь">Обувь</option>
-        <option value="Аксессуары">Аксессуары</option>
-      </select>
+      <div className={style["container-products"]}>
+        <input onChange={onSearchInput} placeholder="Поиск по товарам" /><br />
+        <button onClick={sortDescendingPrice}>Сначала дешевле</button>
+        <button onClick={sortAscendingPrice}>Сначала дороже</button>
+        <select value={categorySort} onChange={(event) => sortCategoryChange(event)}>
+          <option value="Все категории">Все категории</option>
+          <option value="Одежда">Одежда</option>
+          <option value="Обувь">Обувь</option>
+          <option value="Аксессуары">Аксессуары</option>
+        </select>
+        <br />
+
+        {products.map(el => {
+          return (
+            <div className={style["container-card-button"]}>
+              <div className={style["card"]}>
+                <ProductItem
+                  id={el.id}
+                  title={el.title}
+                  seller={el.seller}
+                  price={el.price}
+                  category={el.category}
+                  description={el.description}
+                  imageId={el.imageId}
+                />
+              </div>
+              <button onClick={() => addToCart(el.id)}>Добавить в корзину</button>
+            </div>
+          )
+        })}
+      </div>
       <br />
-      <table>
-        <tbody>
-          <tr>
-            <th>ID</th>
-            <th>Название</th>
-            <th>Продавец</th>
-            <th>Цена</th>
-            <th>Категория</th>
-            <th>Описание</th>
-            <th></th>
-            <th></th>
-          </tr>
-          {filterItems.map(el => {
-            return (
-              <tr>
-                <td>{el.id}</td>
-                <td onClick={() => viewInfo(el.id)}>{el.title}</td>
-                <td>{el.seller}</td>
-                <td>{el.price}</td>
-                <td>{el.category}</td>
-                <td>{el.description}</td>
-                <td><button onClick={() => addToCart(el.id)}>Добавить в корзину</button></td>
-              </tr>
-            )
-          })
-          }
-        </tbody>
-      </table>
-      <h3>Корзина</h3>
-      <table>
-        <tbody>
-          <tr>
-            <th>ID</th>
-            <th>ID товара</th>
-            <th>Название</th>
-            <th>Продавец</th>
-            <th>Цена</th>
-            <th>Категория</th>
-            <th>Описание</th>
-            <th></th>
-            <th></th>
-          </tr>
-          {productsCart.map(el => {
-            return (
-              <tr>
-                <td>{el.id}</td>
-                <td>{el.product.id}</td>
-                <td>{el.product.title}</td>
-                <td>{el.product.seller}</td>
-                <td>{el.product.price}</td>
-                <td>{el.product.category}</td>
-                <td>{el.product.description}</td>
-                <td><button onClick={() => addToCart(el.id)}>+</button></td>
-                <td><button onClick={() => deleteToCart(el.id)}>Удалить из корзины</button></td>
-              </tr>
-            )
-          })
-          }
-        </tbody>
-      </table>
-      <button onClick={makeOrder}>Заказать</button>
-      <br />
-      <h3>Заказы</h3>
-      <table>
-        <tbody>
-          <tr>
-            <th>ID</th>
-            <th>ID товара</th>
-            <th>Название</th>
-            <th>Цена</th>
-            <th>Номер заказа</th>
-            <th>Статус</th>
-          </tr>
-          {order.map(el => {
-            return (
-              <tr>
-                <td>{el.id}</td>
-                <td>{el.product.id}</td>
-                <td>{el.product.title}</td>
-                <td>{el.product.price}</td>
-                <td>{el.number}</td>
-                <td>{el.status}</td>
-              </tr>
-            )
-          })
-          }
-        </tbody>
-      </table>
     </>
   )
 }

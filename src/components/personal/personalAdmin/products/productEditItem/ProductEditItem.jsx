@@ -13,6 +13,7 @@ const ProductEditItem = (props) => {
   const [sellerError, setSellerError] = useState('')
   const [priceError, setPriceError] = useState('')
   const [categoryError, setCategoryError] = useState('')
+  const [selectedFile, setSelectedFile] = React.useState(null);
 
   // state для продукта
   const [product, setProduct] = useState({
@@ -44,7 +45,17 @@ const ProductEditItem = (props) => {
     let instance = axios.create();
     instance.defaults.headers.common['Authorization'] = "Bearer " + tokenBrowser;
 
-    await instance.post(urlAPI + `/api/admin/product/edit/${props.id}`, product) // отправка запроса
+    const formData = new FormData();
+    formData.append("selectedFile", selectedFile);
+    product.price = product.price.toString()
+    formData.append("product", JSON.stringify(product));
+
+    await instance({
+      method: "post",
+      url: urlAPI + `/api/admin/product/edit/${props.id}`, 
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    }) // отправка запроса
       .then((response) => response.data)
       .then((data) => {
         if (data.fieldErrors) { // если есть ошибки
@@ -63,6 +74,10 @@ const ProductEditItem = (props) => {
         }
       })
       .catch((err) => err);
+  }
+
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0])
   }
 
   React.useEffect(() => {
@@ -112,6 +127,10 @@ const ProductEditItem = (props) => {
         onChange={(e) => onInputChange(e)}
       >
       </input>
+      <div>
+        <span>Новое изображение</span>
+        <input type="file" name="file" onChange={handleFileSelect} />
+      </div>
       <button onClick={btnOkChanges}>OK</button><br />
       <span style={{ color: 'red', fontSize: '12px' }}>
         {titleError} {sellerError} {priceError} {categoryError}

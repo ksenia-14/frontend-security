@@ -1,2 +1,50 @@
+.main-container-user{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.btn-exit{
+  font-weight: bold;
+  font-size: 20px;
+  border: 1px solid #172270;
+  border-radius: 20px;
+  padding: 15px;
+  margin: 10px;
+  width: 200px;
+}
+
+.header{
+  display: grid;
+  grid-template-columns: 2.5fr repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #172270;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.hello{
+  padding: 10px;
+}
+
+.header-item{
+  text-align: center;
+  border-radius: 50px;
+  padding: 10px;
+}
+
+.header-item:hover{
+  cursor: pointer;
+  color: #172270;
+  background-color: aliceblue;
+  
+}
+
+
+
+
+
 
 

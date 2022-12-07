@@ -1,11 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
+import { base64StringToBlob } from 'blob-util';
 import { useState } from "react";
 import { urlAPI } from '../../../../global';
 import { AppContext } from '../../../../App';
 import ProductAddItem from './productAddItem/ProductAddItem';
 import ProductEditItem from './productEditItem/ProductEditItem';
+import ProductItem from '../../../productItem/ProductItem';
+import style from './products.module.css';
 
 const Products = () => {
   // использование контекста
@@ -24,6 +27,7 @@ const Products = () => {
     try {
       const productsData = await instance.get(urlAPI + "/api/product/all_products")
       setProducts(productsData.data)
+      setProducts((prev) => prev.sort((a, b) => a.id > b.id ? 1 : -1))
     } catch (error) {
       console.log("Ошибка получения всех продуктов")
     }
@@ -54,49 +58,46 @@ const Products = () => {
 
   return (
     <>
-      <table>
-        <tbody>
-          <tr>
-            <th>ID</th>
-            <th>Название</th>
-            <th>Продавец</th>
-            <th>Цена</th>
-            <th>Категория</th>
-            <th>Описание</th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-          {products.map(el => {
-            return (
-              <tr>
-                <td>{el.id}</td>
-                <td>{el.title}</td>
-                <td>{el.seller}</td>
-                <td>{el.price}</td>
-                <td>{el.category}</td>
-                <td>{el.description}</td>
-                <td><button onClick={() => clickChangeProduct(el.id)}>Изменить</button></td>
-                <td><button onClick={() => btnDelete(el.id)}>Удалить</button></td>
-                <td>
-                  <ProductEditItem
-                    id={el.id}
-                    title={el.title}
-                    seller={el.seller}
-                    price={el.price}
-                    category={el.category}
-                    description={el.description}
-                    changeOn={changeOn}
-                    setChangeOn={setChangeOn}
-                  />
-                </td>
-              </tr>
-            )
-          })
-          }
-        </tbody>
-      </table>
+      {products.map(el => {
+        return (
+          <div className={style["container-card-button"]}>
+            <div className={style["card"]}>
+              <ProductItem
+                id={el.id}
+                title={el.title}
+                seller={el.seller}
+                price={el.price}
+                category={el.category}
+                description={el.description}
+                imageId={el.imageId}
+              />
+            </div>
+            <button className={style["btn-change"]}
+              onClick={() => clickChangeProduct(el.id)}>
+              Изменить
+            </button>
+            <button className={style["btn-delete"]}
+              onClick={() => btnDelete(el.id)}>
+              Удалить
+            </button>
+            <div className={style["container-edit"]}>
+              <ProductEditItem
+                id={el.id}
+                title={el.title}
+                seller={el.seller}
+                price={el.price}
+                category={el.category}
+                description={el.description}
+                changeOn={changeOn}
+                setChangeOn={setChangeOn}
+              />
+            </div>
+          </div>
+        )
+      })}
+
       <ProductAddItem />
+
     </>
   )
 }

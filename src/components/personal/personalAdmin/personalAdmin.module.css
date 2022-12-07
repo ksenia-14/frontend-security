@@ -1,0 +1,14 @@
+.main-container-admin{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.btn-exit{
+  font-weight: bold;
+  font-size: 20px;
+  border: 1px solid #172270;
+  border-radius: 20px;
+  padding: 15px;
+  margin: 10px;
+  width: 200px;
+}

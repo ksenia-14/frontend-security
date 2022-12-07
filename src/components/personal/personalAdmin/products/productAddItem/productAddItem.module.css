@@ -1,0 +1,41 @@
+.main-container-add{
+  display: grid;
+  border: 1px solid #172270;
+  border-radius: 15px;
+  padding: 25px;
+  margin: 2px;
+  width: min-content;
+}
+
+.main-container-add input{
+  border: 1px solid #172270;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  width: 200px;
+}
+
+.main-container-add select{
+  border: 1px solid #172270;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  width: 210px;
+}
+
+.main-container-add button{
+  border: 1px solid #172270;
+  border-radius: 5px;
+  color: white;
+  background-color: rgba(96, 96, 237, 0.692);
+  padding: 10px;
+  margin: 5px;
+  margin-top: 10px;
+  width: 150px;
+  justify-self: center;
+}
+
+.main-container-add h3{
+  color: #172270;
+  text-align: center;
+}

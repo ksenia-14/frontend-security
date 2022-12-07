@@ -5,6 +5,7 @@ import { useState } from "react";
 import { urlAPI } from '../../../../global';
 import { AppContext } from '../../../../App';
 import OrderEditItem from './orderEditItem/OrderEditItem';
+import style from './orders.module.css';
 
 export const OrderContext = React.createContext({})
 
@@ -13,7 +14,6 @@ const Orders = (props) => {
   const [filterItems, setFilterItems] = React.useState([])
   const [search, setSearch] = React.useState('')
   const [firstRenderOrder, setFirstRenderOrder] = React.useState(true)
-  const [stateOrder, setStateOrder] = React.useState('')
 
   // state для заказа
   const [orderInfo, setOrderInfo] = useState({
@@ -37,6 +37,7 @@ const Orders = (props) => {
       try {
         const orderData = await instance.get(urlAPI + "/api/admin/order/get_all")
         setOrder(orderData.data)
+        setOrder((prev) => prev.sort((a, b) => a.id > b.id ? 1 : -1))
         setFilterItems(orderData.data)
       } catch (error) {
         console.log("Ошибка получения заказов")
@@ -55,31 +56,13 @@ const Orders = (props) => {
         item.number.toLowerCase().includes(search.toLowerCase())))
   }
 
-  const onInputChange = (e) => {
-    setStateOrder(e.target.value)
-  }
-
-  const btnChangeState = async (numberOrder) => {
-    setOrderInfo({ state: stateOrder, number: numberOrder })
-
-    let tokenBrowser = localStorage.getItem('JSESSIONID')
-    let instance = axios.create();
-    instance.defaults.headers.common['Authorization'] = "Bearer " + tokenBrowser;
-
-    try {
-      await instance.post(urlAPI + "/api/admin/order/change_state", orderInfo)
-    } catch (error) {
-      console.log("Ошибка изменения статуса заказа")
-    }
-  }
-
   React.useEffect(() => {
     axiosData()
     filterSearch()
   }, [context.render, search])
 
   return (
-    <>
+    <div className={style["container-order"]}>
       <p>Введите последние 4 цифры заказа</p>
       <input onChange={onSearchInput} placeholder="Поиск по заказам" /><br />
       <h3>Заказы</h3>
@@ -87,11 +70,12 @@ const Orders = (props) => {
         <tbody>
           <tr>
             <th>ID</th>
-            <th>ID пользователя</th>
+            <th>USER ID</th>
             <th>Логин</th>
             <th>ID товара</th>
             <th>Название</th>
             <th>Цена</th>
+            <th>Сумма заказа</th>
             <th>Номер заказа</th>
             <th>Статус</th>
             <th>Новый статус</th>
@@ -105,6 +89,7 @@ const Orders = (props) => {
                 <td>{el.product.id}</td>
                 <td>{el.product.title}</td>
                 <td>{el.product.price}</td>
+                <td>{el.price}</td>
                 <td>{el.number}</td>
                 <td>{el.status}</td>
                 <td>
@@ -123,7 +108,7 @@ const Orders = (props) => {
           }
         </tbody>
       </table>
-    </>
+    </div>
   )
 }
 export default Orders

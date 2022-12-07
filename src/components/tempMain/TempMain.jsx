@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AppContext } from '../../App';
 import style from './tempMain.module.css';
 import { urlAPI } from '../../global';
+import ProductItem from '../productItem/ProductItem';
 
 const TempMain = () => {
   const [products, setProducts] = React.useState([]) // state для хранения товаров
@@ -94,48 +95,43 @@ const TempMain = () => {
 
   return (
     <>
-      <p>Главная страница</p>
-      <p className={style["p-button"]} onClick={onClickLogIn}>Войти</p>
-      <p className={style["p-button"]} onClick={onClickSignIn}>Зарегистрироваться</p>
+      <div className={style["container-header"]}>
+        <p>Главная страница</p>
+        <div className={style["p-button"]} onClick={onClickLogIn}>Войти</div>
+        <div className={style["p-button"]} onClick={onClickSignIn}>Зарегистрироваться</div>
+      </div>
       <br /><br />
-      <input onChange={onSearchInput} placeholder="Поиск по товарам" /><br />
-      <button onClick={debug}>debug</button>
-      <button onClick={sortDescendingPrice}>Сначала дешевле</button>
-      <button onClick={sortAscendingPrice}>Сначала дороже</button>
-      <select value={categorySort} onChange={(event) => sortCategoryChange(event)}>
-        <option value="Все категории">Все категории</option>
-        <option value="Одежда">Одежда</option>
-        <option value="Обувь">Обувь</option>
-        <option value="Аксессуары">Аксессуары</option>
-      </select>
-      <br />
-      <table>
-        <tbody>
-          <tr>
-            <th>ID</th>
-            <th>Название</th>
-            <th>Продавец</th>
-            <th>Цена</th>
-            <th>Категория</th>
-            <th>Описание</th>
-            <th></th>
-            <th></th>
-          </tr>
-          {filterItems.map(el => {
-            return (
-              <tr>
-                <td>{el.id}</td>
-                <td onClick={() => viewInfo(el.id)}>{el.title}</td>
-                <td>{el.seller}</td>
-                <td>{el.price}</td>
-                <td>{el.category}</td>
-                <td>{el.description}</td>
-              </tr>
-            )
-          })
-          }
-        </tbody>
-      </table>
+
+      <div className={style["container-products"]}>
+        <input onChange={onSearchInput} placeholder="Поиск по товарам" /><br />
+        <button onClick={sortDescendingPrice}>Сначала дешевле</button>
+        <button onClick={sortAscendingPrice}>Сначала дороже</button>
+        <select value={categorySort} onChange={(event) => sortCategoryChange(event)}>
+          <option value="Все категории">Все категории</option>
+          <option value="Одежда">Одежда</option>
+          <option value="Обувь">Обувь</option>
+          <option value="Аксессуары">Аксессуары</option>
+        </select>
+        <br />
+
+        {filterItems.map(el => {
+          return (
+            <div className={style["container-card-button"]}>
+              <div className={style["card"]}>
+                <ProductItem
+                  id={el.id}
+                  title={el.title}
+                  seller={el.seller}
+                  price={el.price}
+                  category={el.category}
+                  description={el.description}
+                  imageId={el.imageId}
+                />
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </>
   )
 }

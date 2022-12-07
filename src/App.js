@@ -9,6 +9,7 @@ import RegistrationPage from './pages/RegistrationPage';
 import PersonalPage from './pages/PersonalPage';
 import MainPage from './pages/MainPage';
 import ProductInfo from './components/productInfo/ProductInfo';
+import ImageUploader from './components/imageUploader/ImageUploader';
 
 // контекст
 export const AppContext = React.createContext({})
@@ -94,6 +95,7 @@ function App() {
           path='/'
           element={
             <MainPage />
+            // <ImageUploader/>
           }
         />
         <Route
