@@ -21,6 +21,8 @@ const Products = () => {
   const [filterItems, setFilterItems] = React.useState([])
   const [search, setSearch] = React.useState('')
 
+  const value = 1
+
   // state для продукта
   const [product, setProduct] = useState({
     title: "",
@@ -78,34 +80,16 @@ const Products = () => {
     context.updateRender()
   }
 
-  const deleteToCart = async (id) => {
-    let tokenBrowser = localStorage.getItem('JSESSIONID')
-    let instance = axios.create();
-    instance.defaults.headers.common['Authorization'] = "Bearer " + tokenBrowser;
-
-    await instance.get(urlAPI + `/api/user/product/delete_cart/${id}`) // отправка запроса
-      .catch((err) => err);
-    context.updateRender()
-  }
-
-  const makeOrder = async () => {
-    let tokenBrowser = localStorage.getItem('JSESSIONID')
-    let instance = axios.create();
-    instance.defaults.headers.common['Authorization'] = "Bearer " + tokenBrowser;
-
-    await instance.get(urlAPI + "/api/user/product/make_order") // отправка запроса
-      .catch((err) => err);
-    context.updateRender()
-  }
-
   const sortDescendingPrice = () => {
     setFilterItems((prev) => prev.sort((a, b) => a.price > b.price ? 1 : -1))
     context.updateRender()
+    value = value+1
   }
 
   const sortAscendingPrice = () => {
     setFilterItems((prev) => prev.sort((a, b) => a.price < b.price ? 1 : -1))
     context.updateRender()
+    value = value+1
   }
 
   const sortCategory = () => {
@@ -120,7 +104,7 @@ const Products = () => {
     if (search) {
       setFilterItems(
         filterItems.filter((item) =>
-          item.title.slice(-4).toLowerCase().includes(search.toLowerCase()))
+          item.title.toLowerCase().includes(search.toLowerCase()))
       )
     }
   }
@@ -131,21 +115,15 @@ const Products = () => {
 
   const onSearchInput = (inputValue) => {
     setSearch(inputValue.target.value)
-  }
-
-  const viewInfo = (id) => {
-    context.setInfoId(id)
-    navigate("/product/info")
+    context.updateRender()
+    value = value+1
   }
 
   React.useEffect(() => {
     axiosData()
     sortCategory()
-  }, [context.render, categorySort, search])
+  }, [context.render, categorySort, search, value])
 
-  const debug = () => {
-    console.log(categorySort)
-  }
 
   return (
     <>
@@ -162,7 +140,7 @@ const Products = () => {
         <br />
 
         <div className={style["container-products"]}>
-          {products.map(el => {
+          {filterItems.map(el => {
             return (
               <div className={style["container-card-button"]}>
                 <div className={style["card"]}>
