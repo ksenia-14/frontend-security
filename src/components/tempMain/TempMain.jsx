@@ -102,35 +102,37 @@ const TempMain = () => {
       </div>
       <br /><br />
 
-      <div className={style["container-products"]}>
+      <div className={style["container-products-filter"]}>
         <input onChange={onSearchInput} placeholder="Поиск по товарам" /><br />
         <button onClick={sortDescendingPrice}>Сначала дешевле</button>
         <button onClick={sortAscendingPrice}>Сначала дороже</button>
         <select value={categorySort} onChange={(event) => sortCategoryChange(event)}>
           <option value="Все категории">Все категории</option>
-          <option value="Одежда">Одежда</option>
+          <option value="Футболки">Футболки</option>
+          <option value="Толстовки">Толстовки</option>
           <option value="Обувь">Обувь</option>
-          <option value="Аксессуары">Аксессуары</option>
         </select>
         <br />
 
-        {filterItems.map(el => {
-          return (
-            <div className={style["container-card-button"]}>
-              <div className={style["card"]}>
-                <ProductItem
-                  id={el.id}
-                  title={el.title}
-                  seller={el.seller}
-                  price={el.price}
-                  category={el.category}
-                  description={el.description}
-                  imageId={el.imageId}
-                />
+        <div className={style["container-products"]}>
+          {filterItems.map(el => {
+            return (
+              <div className={style["container-card-button"]}>
+                <div className={style["card"]}>
+                  <ProductItem
+                    id={el.id}
+                    title={el.title}
+                    seller={el.seller}
+                    price={el.price}
+                    category={el.category}
+                    description={el.description}
+                    imageId={el.imageId}
+                  />
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
     </>
   )

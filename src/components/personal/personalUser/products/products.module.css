@@ -1,28 +1,3 @@
-.container-header{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  text-align: center;
-
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-  background-color: #172270;
-  padding: 20px;
-  margin-bottom: 30px;
-}
-
-.p-button {
-  cursor: pointer;
-  border-radius: 50px;
-  padding: 15px;
-}
-
-.p-button:hover {
-  color: #172270;
-  background-color: aliceblue;
-}
-
 .container-products-filter input{
   border: 1px solid #172270;
   border-radius: 15px;
@@ -54,11 +29,6 @@
   padding: 15px;
   margin: 10px;
   width: 200px;
-}
-
-.container-products{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 }
 
 .container-card-button{
@@ -94,4 +64,9 @@
   align-self: center;
   color: white;
   background-color: #1721709f;
+}
+
+.container-products{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

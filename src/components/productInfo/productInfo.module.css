@@ -1,0 +1,54 @@
+.container-card img{
+  max-width: 600px;
+  max-height: 600px;
+}
+
+.container-card{
+  display: grid;
+  grid-template-columns: min-content 300px;
+
+  padding: 20px;
+  margin: 10px;
+  width: min-content;
+
+  font-size: 20px;
+}
+
+.container-card h3{
+  font-size: 45px;
+}
+
+.container-img{
+  display: grid;
+  align-content: center;
+
+  margin-right: 15px;
+}
+
+.container-card span{
+  font-weight: bold;
+  color: #172270;
+}
+
+.container-text{
+  margin-left: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

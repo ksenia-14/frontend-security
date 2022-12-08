@@ -19,6 +19,7 @@ function App() {
   const [loginUser, setLoginUser] = React.useState('')  // state для хранения логина
   const [render, setRender] = React.useState(0);  // state для обновления рендера
   const [infoId, setInfoId] = React.useState('')
+  const [infoProductId, setInfoProductId] = React.useState(null)
 
   let navigate = useNavigate()  // использование навигации - переброс на другой url
 
@@ -76,6 +77,7 @@ function App() {
       infoId, setInfoId,
       isAuthorization,
       getRole,
+      infoProductId, setInfoProductId,
       render, setRender, updateRender
     }}>
       <Routes>

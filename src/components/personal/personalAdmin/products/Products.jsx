@@ -57,7 +57,7 @@ const Products = () => {
   }, [context.render])
 
   return (
-    <>
+    <div className={style["container-products"]}>
       {products.map(el => {
         return (
           <div className={style["container-card-button"]}>
@@ -95,10 +95,12 @@ const Products = () => {
           </div>
         )
       })}
+      <div>
+        <ProductAddItem />
+      </div>
+      
 
-      <ProductAddItem />
-
-    </>
+    </div>
   )
 }
 export default Products

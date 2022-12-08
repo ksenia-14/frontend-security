@@ -34,18 +34,19 @@ const PersonalAdmin = () => {
       <h1>Вы вошли в личный кабинет администратора</h1>
       <div onClick={() => setViewUsers(!viewUsers)}>
         <OpenElement title="Пользователи" />
-        {viewUsers ? <Users /> : null}
       </div>
+      {viewUsers ? <Users /> : null}
 
       <div onClick={() => setViewProducts(!viewProducts)}>
         <OpenElement title="Товары" />
-        {viewProducts ? <Products /> : null}
       </div>
+      {viewProducts ? <Products /> : null}
 
       <div onClick={() => setViewOrders(!viewOrders)}>
         <OpenElement title="Заказы" />
-        {viewOrders ? <Orders /> : null}
       </div>
+      {viewOrders ? <Orders /> : null}
+      
       <button className={style["btn-exit"]} onClick={btnLogout}>Выйти</button><br /><br />
     </div>
   )

@@ -1,0 +1,19 @@
+table{
+  /* border: 1px solid brown; */
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid grey;
+  padding: 10px;
+}
+
+.hide-column{
+  border:none !important
+}
+
+
+
+
+
+

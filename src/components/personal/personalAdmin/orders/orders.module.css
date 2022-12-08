@@ -1,0 +1,21 @@
+.container-order input{
+  border: 1px solid #172270;
+  border-radius: 15px;
+  padding: 10px;
+  width: 300px;
+}
+
+.container-order input:focus{
+  outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+

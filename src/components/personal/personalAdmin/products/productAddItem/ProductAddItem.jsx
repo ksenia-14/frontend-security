@@ -20,7 +20,7 @@ const ProductAddItem = (props) => {
     title: "",
     seller: "",
     price: "",
-    category: "Одежда",
+    category: "Футболки",
     description: ""
   })
 
@@ -108,9 +108,9 @@ const ProductAddItem = (props) => {
       <select name="category"
         value={category}
         onChange={(e) => onInputChange(e)}>
-        <option value="Одежда">Одежда</option>
-        <option value="Обувь">Обувь</option>
-        <option value="Аксессуары">Аксессуары</option>
+          <option value="Футболки">Футболки</option>
+          <option value="Толстовки">Толстовки</option>
+          <option value="Обувь">Обувь</option>
       </select>
       <input
         name="description"
