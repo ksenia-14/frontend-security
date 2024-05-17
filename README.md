@@ -1,70 +1,20 @@
-# Getting Started with Create React App
+# Интернет-магазин
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Программная часть
+Frontend: https://github.com/ksenia-14/frontend-security
 
-## Available Scripts
+Backend: https://github.com/ksenia-14/SpringSecurityApplication
 
-In the project directory, you can run:
+Deploy: https://ksenia-14.github.io/frontend-security (площадка, на которой размещен backend, больше не доступна, функционал сайта ограничен)
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Функционал
+В проекте реализованы следующие функции (backend):
+- Аутентификация.
+- Авторизация по ролям: админимтратор, обычный пользователь.
+- Шифрование паролей.
+- Личный кабинет администратора со следующими функциями: добавление, удаление, редактирование, просмотр товаров, работа с фотографиями, возможность выхода из личного кабинета.
+- Личный кабинет пользователя со следующими функциями: поиск, сортировка, фильтрация товаров, просмотр карточек с товаром (фотография, цена, наименование), подробная информация о товаре при нажатии на наименование, добавление товаров в корзину, переход на страницу с корзиной, просмотр товаров в корзине, удаление товаров из корзины, оформление заказа, очищение корзины после оформления заказа, переход на страницу заказов, просмотр истории заказов, выход из личного кабинета.
+- Главная страница сайта для неавторизованных пользователей включает в себя следующий функционал: просмотр карточек с товарами (фотография, цена, наименование), просмотр подробной информации о товаре, поиск, фильтрация, сортировка по товарам.
+- В личном кабинете администратора есть возможность просматривать заказы, изменять статус у заказа, осуществлять поиск по 4 последним буквам/цифрам заказа.
+- Для администратора реализована возможность просмотра информации о пользователях.
+- Для администратора реализована возможность смены роли у пользователя.
